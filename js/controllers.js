@@ -15,4 +15,6 @@ apotekApp.controller("ProductListController", function($scope) {
 			"quantity": 75
 		}
 	];
+	
+	$scope.orderProp = "id";
 });
