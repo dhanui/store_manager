@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="apotekApp">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +7,10 @@
 		<title>Aplikasi Apotek</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/apotek.css" rel="stylesheet">
+		<script src="js/angular.min.js"></script>
+		<script src="js/controllers.js"></script>
 	</head>
-	<body>
+	<body ng-controller="ProductListController">
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -63,17 +65,11 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Obat batuk</td>
-									<td>10000</td>
-									<td>50</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>Obat pilek</td>
-									<td>9000</td>
-									<td>75</td>
+								<tr ng-repeat="product in products">
+									<td>{{product.id}}</td>
+									<td>{{product.name}}</td>
+									<td>{{product.price}}</td>
+									<td>{{product.quantity}}</td>
 								</tr>
 							</tbody>
 						</table>
