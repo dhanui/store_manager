@@ -1,20 +1,9 @@
 var apotekApp = angular.module("apotekApp", []);
+var JsobDB = require("node-json-db");
+var db = new JsobDB("data", false, false);
 
 apotekApp.controller("ProductListController", function($scope) {
-	$scope.products = [
-		{
-			"id": 1,
-			"name": "Obat batuk",
-			"price": 10000,
-			"quantity": 50
-		},
-		{
-			"id": 2,
-			"name": "Obat pilek",
-			"price": 9000,
-			"quantity": 75
-		}
-	];
+	$scope.products = db.getData("/products");
 	
 	$scope.orderProp = "id";
 });

@@ -1,5 +1,10 @@
 {
 	"name": "apotek",
 	"version": "0.1.0",
-	"main": "main.js"
+	"main": "main.js",
+	"dependencies": {
+		"electron-prebuilt": ">=0.30.4",
+		"electron-rebuild": ">=0.2.5",
+		"node-json-db": ">=0.4.6"
+	}
 }
