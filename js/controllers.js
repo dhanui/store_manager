@@ -37,3 +37,39 @@ apotekControllers.controller("ProductNewController", ["$scope", "$location", fun
 		$location.path("/products");
 	};
 }]);
+
+apotekControllers.controller("CustomerListController", ["$scope", function($scope) {
+	try {
+		$scope.customers = db.getData("/customers");
+	} catch(error) {
+		$scope.customers = [];
+	}
+	console.log($scope.customers)
+	
+	$scope.orderProp = "id";
+}]);
+
+apotekControllers.controller("CustomerNewController", ["$scope", "$location", function($scope, $location) {
+	$scope.submit = function() {
+		var new_id = 1;
+		try {
+			var customers = db.getData("/customers");
+			
+			if (customers.length > 0) {
+				new_id = customers[customers.length - 1].id + 1;
+			}
+		} catch(error) {
+			new_id = 1;
+		}
+		
+		db.push("/customers[" + (new_id - 1) + "]", {
+			id: parseInt(new_id),
+			name: $scope.name,
+			address: $scope.address,
+			phone_number: $scope.phone_number
+		});
+		db.save();
+		
+		$location.path("/customers");
+	};
+}]);
