@@ -3,12 +3,7 @@ var JsobDB = require("node-json-db");
 var db = new JsobDB("data", false, false);
 
 apotekControllers.controller("ProductListController", ["$scope", function($scope) {
-	try {
-		$scope.products = db.getData("/products");
-	} catch(error) {
-		$scope.products = [];
-	}
-	console.log($scope.products)
+	$scope.products = getProducts();
 	
 	$scope.orderProp = "id";
 }]);
@@ -27,7 +22,7 @@ apotekControllers.controller("ProductNewController", ["$scope", "$location", fun
 		}
 		
 		db.push("/products[" + (new_id - 1) + "]", {
-			id: parseInt(new_id),
+			id: new_id,
 			name: $scope.name,
 			price: parseInt($scope.price),
 			quantity: parseInt($scope.quantity)
@@ -39,12 +34,7 @@ apotekControllers.controller("ProductNewController", ["$scope", "$location", fun
 }]);
 
 apotekControllers.controller("CustomerListController", ["$scope", function($scope) {
-	try {
-		$scope.customers = db.getData("/customers");
-	} catch(error) {
-		$scope.customers = [];
-	}
-	console.log($scope.customers)
+	$scope.customers = getCustomers();
 	
 	$scope.orderProp = "id";
 }]);
@@ -63,7 +53,7 @@ apotekControllers.controller("CustomerNewController", ["$scope", "$location", fu
 		}
 		
 		db.push("/customers[" + (new_id - 1) + "]", {
-			id: parseInt(new_id),
+			id: new_id,
 			name: $scope.name,
 			address: $scope.address,
 			phone_number: $scope.phone_number
@@ -73,3 +63,66 @@ apotekControllers.controller("CustomerNewController", ["$scope", "$location", fu
 		$location.path("/customers");
 	};
 }]);
+
+apotekControllers.controller("CreditNewController", ["$scope", "$location", function($scope, $location) {
+	$scope.customers = getObjects("customers");
+	$scope.products = getObjects("products");
+	$scope.item = []
+	
+	$scope.submit = function() {
+		var credit_id = getNewObjectId("credits");
+		insertObject("credits", {
+			id: credit_id,
+			customer_id: $scope.customer_id
+		});
+		
+		for (var i = 0; i < $scope.item.length; i++) {
+			insertObject("credit_items", {
+				id: getNewObjectId("credit_items"),
+				credit_id: credit_id,
+				product_id: $scope.item[i].product_id,
+				quantity: $scope.item[0].quantity
+			});
+		}
+		
+		$location.path("/products");
+	}
+}]);
+
+function getNewObjectId(model) {
+	try {
+		var objects = db.getData("/" + model);
+		return objects.length + 1
+	} catch (error) {
+		return 1
+	}
+}
+
+function insertObject(model, data) {
+	db.push("/" + model + "[" + (data.id - 1) + "]", data);
+	db.save();
+}
+
+function getObjects(model) {
+	try {
+		return db.getData("/" + model)
+	} catch (error) {
+		return []
+	}
+}
+
+function getProducts() {
+	try {
+		return db.getData("/products");
+	} catch(error) {
+		return [];
+	}
+}
+
+function getCustomers() {
+	try {
+		return db.getData("/customers");
+	} catch(error) {
+		return [];
+	}
+}

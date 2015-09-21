@@ -16,6 +16,9 @@ apotekApp.config(["$routeProvider", function($routeProvider) {
 	}).when("/customers/new", {
 		templateUrl: "partials/customer-new.html",
 		controller: "CustomerNewController"
+	}).when("/credit/new", {
+		templateUrl: "partials/credit-new.html",
+		controller: "CreditNewController"
 	}).otherwise({
 		redirectTo: "/products"
 	});
