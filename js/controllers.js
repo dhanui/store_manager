@@ -3,7 +3,7 @@ var JsobDB = require("node-json-db");
 var db = new JsobDB("data", false, false);
 
 apotekControllers.controller("ProductListController", ["$scope", function($scope) {
-	$scope.products = getProducts();
+	$scope.products = getObjects("products");
 	
 	$scope.orderProp = "id";
 }]);
@@ -34,7 +34,7 @@ apotekControllers.controller("ProductNewController", ["$scope", "$location", fun
 }]);
 
 apotekControllers.controller("CustomerListController", ["$scope", function($scope) {
-	$scope.customers = getCustomers();
+	$scope.customers = getObjects("customers");
 	
 	$scope.orderProp = "id";
 }]);
@@ -67,21 +67,30 @@ apotekControllers.controller("CustomerNewController", ["$scope", "$location", fu
 apotekControllers.controller("CreditNewController", ["$scope", "$location", function($scope, $location) {
 	$scope.customers = getObjects("customers");
 	$scope.products = getObjects("products");
-	$scope.item = []
+	$scope.ids = [0]
+	$scope.items = []
+	
+	$scope.add_product = function() {
+		$scope.ids.push($scope.ids[$scope.ids.length - 1] + 1);
+	}
 	
 	$scope.submit = function() {
 		var credit_id = getNewObjectId("credits");
-		insertObject("credits", {
+		updateOrInsertObject("credits", {
 			id: credit_id,
 			customer_id: $scope.customer_id
 		});
 		
-		for (var i = 0; i < $scope.item.length; i++) {
-			insertObject("credit_items", {
+		for (var i = 0; i < $scope.items.length; i++) {
+			var product = getObject("products", $scope.items[i].product_id);
+			product.quantity -= $scope.items[i].quantity;
+			updateOrInsertObject("products", product);
+			
+			updateOrInsertObject("credit_items", {
 				id: getNewObjectId("credit_items"),
 				credit_id: credit_id,
-				product_id: $scope.item[i].product_id,
-				quantity: $scope.item[0].quantity
+				product_id: $scope.items[i].product_id,
+				quantity: $scope.items[i].quantity
 			});
 		}
 		
@@ -98,7 +107,7 @@ function getNewObjectId(model) {
 	}
 }
 
-function insertObject(model, data) {
+function updateOrInsertObject(model, data) {
 	db.push("/" + model + "[" + (data.id - 1) + "]", data);
 	db.save();
 }
@@ -111,18 +120,10 @@ function getObjects(model) {
 	}
 }
 
-function getProducts() {
+function getObject(model, id) {
 	try {
-		return db.getData("/products");
-	} catch(error) {
-		return [];
-	}
-}
-
-function getCustomers() {
-	try {
-		return db.getData("/customers");
-	} catch(error) {
-		return [];
+		return db.getData("/" + model + "[" + (id - 1) + "]");
+	} catch (error) {
+		return undefined;
 	}
 }
