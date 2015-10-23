@@ -1,6 +1,4 @@
 var apotekControllers = angular.module("apotekControllers", []);
-var JsobDB = require("node-json-db");
-var db = new JsobDB("data", false, false);
 
 apotekControllers.controller("ProductListController", ["$scope", function($scope) {
 	$scope.products = getObjects("products");
@@ -10,24 +8,12 @@ apotekControllers.controller("ProductListController", ["$scope", function($scope
 
 apotekControllers.controller("ProductNewController", ["$scope", "$location", function($scope, $location) {
 	$scope.submit = function() {
-		var new_id = 1;
-		try {
-			var products = db.getData("/products");
-			
-			if (products.length > 0) {
-				new_id = products[products.length - 1].id + 1;
-			}
-		} catch(error) {
-			new_id = 1;
-		}
-		
-		db.push("/products[" + (new_id - 1) + "]", {
-			id: new_id,
+		updateOrInsertObject("products", {
+			id: getNewObjectId("products"),
 			name: $scope.name,
 			price: parseInt($scope.price),
 			quantity: parseInt($scope.quantity)
-		});
-		db.save();
+		})
 		
 		$location.path("/products");
 	};
@@ -41,24 +27,12 @@ apotekControllers.controller("CustomerListController", ["$scope", function($scop
 
 apotekControllers.controller("CustomerNewController", ["$scope", "$location", function($scope, $location) {
 	$scope.submit = function() {
-		var new_id = 1;
-		try {
-			var customers = db.getData("/customers");
-			
-			if (customers.length > 0) {
-				new_id = customers[customers.length - 1].id + 1;
-			}
-		} catch(error) {
-			new_id = 1;
-		}
-		
-		db.push("/customers[" + (new_id - 1) + "]", {
-			id: new_id,
+		updateOrInsertObject("customers", {
+			id: getNewObjectId("customers"),
 			name: $scope.name,
 			address: $scope.address,
 			phone_number: $scope.phone_number
-		});
-		db.save();
+		})
 		
 		$location.path("/customers");
 	};
@@ -97,33 +71,3 @@ apotekControllers.controller("CreditNewController", ["$scope", "$location", func
 		$location.path("/products");
 	}
 }]);
-
-function getNewObjectId(model) {
-	try {
-		var objects = db.getData("/" + model);
-		return objects.length + 1
-	} catch (error) {
-		return 1
-	}
-}
-
-function updateOrInsertObject(model, data) {
-	db.push("/" + model + "[" + (data.id - 1) + "]", data);
-	db.save();
-}
-
-function getObjects(model) {
-	try {
-		return db.getData("/" + model)
-	} catch (error) {
-		return []
-	}
-}
-
-function getObject(model, id) {
-	try {
-		return db.getData("/" + model + "[" + (id - 1) + "]");
-	} catch (error) {
-		return undefined;
-	}
-}
