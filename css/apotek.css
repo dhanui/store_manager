@@ -59,6 +59,13 @@ body {
 	margin-top: 0;
 }
 
+.sort-order:after {
+	content: "\25b2";
+}
+.sort-order.reverse:after {
+	content: "\25bc";
+}
+
 a[ng-click] {
 	cursor: pointer;
 }

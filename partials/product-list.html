@@ -5,28 +5,32 @@
 		<label for="search">Search</label> 
 		<input type="text" class="form-control" id="search" ng-model="query">
 	</div>
-	<div class="form-group">
-		<label for="sort-by">Sort by</label> 
-		<select id="sort-by" class="form-control" ng-model="orderProp">
-			<option value="name">Name</option>
-			<option value="price">Price</option>
-			<option value="quantity">Quantity</option>
-		</select>
-	</div>
 </form>
 
 <div class="table-responsive">
 	<table class="table table-striped products">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>Name</th>
-				<th>Price</th>
-				<th>Quantity</th>
+				<th>
+					<a ng-click="order('id')">#</a>
+					<span class="sort-order" ng-show="predicate === 'id'" ng-class="{reverse:reverse}"></span>
+				</th>
+				<th>
+					<a ng-click="order('name')">Name</a>
+					<span class="sort-order" ng-show="predicate === 'name'" ng-class="{reverse:reverse}"></span>
+				</th>
+				<th>
+					<a ng-click="order('price')">Price</a>
+					<span class="sort-order" ng-show="predicate === 'price'" ng-class="{reverse:reverse}"></span>
+				</th>
+				<th>
+					<a ng-click="order('quantity')">Quantity</a>
+					<span class="sort-order" ng-show="predicate === 'quantity'" ng-class="{reverse:reverse}"></span>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="product in products | filter:query | orderBy:orderProp">
+			<tr ng-repeat="product in products | filter:query | orderBy:predicate:reverse">
 				<td>{{product.id}}</td>
 				<td>{{product.name}}</td>
 				<td>{{product.price}}</td>

@@ -4,7 +4,11 @@ var db = new DB();
 apotekControllers.controller("ProductListController", ["$scope", function($scope) {
 	$scope.products = db.getObjects("products");
 	
-	$scope.orderProp = "id";
+	$scope.predicate = "id";
+	$scope.order = function(predicate) {
+		$scope.reverse = ($scope.predicate === predicate) ? ! $scope.reverse : false;
+		$scope.predicate = predicate;
+	};
 }]);
 
 apotekControllers.controller("ProductNewController", ["$scope", "$location", function($scope, $location) {
@@ -22,7 +26,11 @@ apotekControllers.controller("ProductNewController", ["$scope", "$location", fun
 apotekControllers.controller("CustomerListController", ["$scope", function($scope) {
 	$scope.customers = db.getObjects("customers");
 	
-	$scope.orderProp = "id";
+	$scope.predicate = "id";
+	$scope.order = function(predicate) {
+		$scope.reverse = ($scope.predicate === predicate) ? ! $scope.reverse : false;
+		$scope.predicate = predicate;
+	};
 }]);
 
 apotekControllers.controller("CustomerNewController", ["$scope", "$location", function($scope, $location) {
