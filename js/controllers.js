@@ -8,8 +8,7 @@ apotekControllers.controller("ProductListController", ["$scope", function($scope
 
 apotekControllers.controller("ProductNewController", ["$scope", "$location", function($scope, $location) {
 	$scope.submit = function() {
-		updateOrInsertObject("products", {
-			id: getNewObjectId("products"),
+		insertObject("products", {
 			name: $scope.name,
 			price: parseInt($scope.price),
 			quantity: parseInt($scope.quantity)
@@ -27,8 +26,7 @@ apotekControllers.controller("CustomerListController", ["$scope", function($scop
 
 apotekControllers.controller("CustomerNewController", ["$scope", "$location", function($scope, $location) {
 	$scope.submit = function() {
-		updateOrInsertObject("customers", {
-			id: getNewObjectId("customers"),
+		insertObject("customers", {
 			name: $scope.name,
 			address: $scope.address,
 			phone_number: $scope.phone_number
@@ -49,20 +47,17 @@ apotekControllers.controller("CreditNewController", ["$scope", "$location", func
 	}
 	
 	$scope.submit = function() {
-		var credit_id = getNewObjectId("credits");
-		updateOrInsertObject("credits", {
-			id: credit_id,
+		var credit = insertObject("credits", {
 			customer_id: $scope.customer_id
 		});
 		
 		for (var i = 0; i < $scope.items.length; i++) {
 			var product = getObject("products", $scope.items[i].product_id);
 			product.quantity -= $scope.items[i].quantity;
-			updateOrInsertObject("products", product);
+			updateObject("products", product);
 			
-			updateOrInsertObject("credit_items", {
-				id: getNewObjectId("credit_items"),
-				credit_id: credit_id,
+			insertObject("credit_items", {
+				credit_id: credit.id,
 				product_id: $scope.items[i].product_id,
 				quantity: $scope.items[i].quantity
 			});

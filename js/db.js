@@ -10,9 +10,17 @@ function getNewObjectId(model) {
 	}
 }
 
-function updateOrInsertObject(model, data) {
+function insertObject(model, data) {
+	data.id = getNewObjectId(model);
+	
+	return updateObject(model, data);
+}
+
+function updateObject(model, data) {
 	db.push("/" + model + "[" + (data.id - 1) + "]", data);
 	db.save();
+	
+	return data;
 }
 
 function getObjects(model) {
