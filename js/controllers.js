@@ -13,7 +13,7 @@ apotekControllers.controller("ProductNewController", ["$scope", "$location", fun
 			name: $scope.name,
 			price: parseInt($scope.price),
 			quantity: parseInt($scope.quantity)
-		})
+		});
 		
 		$location.path("/products");
 	};
@@ -31,7 +31,7 @@ apotekControllers.controller("CustomerNewController", ["$scope", "$location", fu
 			name: $scope.name,
 			address: $scope.address,
 			phone_number: $scope.phone_number
-		})
+		});
 		
 		$location.path("/customers");
 	};
@@ -40,12 +40,12 @@ apotekControllers.controller("CustomerNewController", ["$scope", "$location", fu
 apotekControllers.controller("CreditNewController", ["$scope", "$location", function($scope, $location) {
 	$scope.customers = db.getObjects("customers");
 	$scope.products = db.getObjects("products");
-	$scope.ids = [0]
-	$scope.items = []
+	$scope.ids = [0];
+	$scope.items = [];
 	
 	$scope.add_product = function() {
 		$scope.ids.push($scope.ids[$scope.ids.length - 1] + 1);
-	}
+	};
 	
 	$scope.submit = function() {
 		var credit = db.insertObject("credits", {
@@ -65,5 +65,5 @@ apotekControllers.controller("CreditNewController", ["$scope", "$location", func
 		}
 		
 		$location.path("/products");
-	}
+	};
 }]);
