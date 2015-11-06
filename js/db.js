@@ -22,7 +22,7 @@ function DB() {
 	this.insertObject = function(model, data) {
 		data.id = getNewObjectId(model);
 		
-		return updateObject(model, data);
+		return this.updateObject(model, data);
 	};
 	
 	this.updateObject = function(model, data) {

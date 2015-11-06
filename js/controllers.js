@@ -56,21 +56,24 @@ apotekControllers.controller("CreditNewController", ["$scope", "$location", func
 	};
 	
 	$scope.submit = function() {
-		var credit = db.insertObject("credits", {
-			customer_id: $scope.customer_id
-		});
+		var credit = {
+            customer_id: $scope.customer_id,
+            products: []
+        };
 		
 		for (var i = 0; i < $scope.items.length; i++) {
 			var product = db.getObject("products", $scope.items[i].product_id);
 			product.quantity -= $scope.items[i].quantity;
 			db.updateObject("products", product);
-			
-			db.insertObject("credit_items", {
-				credit_id: credit.id,
-				product_id: $scope.items[i].product_id,
-				quantity: $scope.items[i].quantity
-			});
+            
+            credit.products.push({
+                name: product.name,
+                price: product.price,
+                quantity: $scope.items[i].quantity
+            });
 		}
+        
+        db.insertObject("credits", credit);
 		
 		$location.path("/products");
 	};
