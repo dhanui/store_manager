@@ -16,10 +16,13 @@ apotekApp.config(["$routeProvider", function($routeProvider) {
 	}).when("/customers/new", {
 		templateUrl: "partials/customer-new.html",
 		controller: "CustomerNewController"
-	}).when("/credit/new", {
+	}).when("/credits/new", {
 		templateUrl: "partials/credit-new.html",
 		controller: "CreditNewController"
-	}).otherwise({
+	}).when("/customers/:customer_id/credits", {
+        templateUrl: "partials/customer-credit-list.html",
+        controller: "CustomerCreditListController"
+    }).otherwise({
 		redirectTo: "/products"
 	});
 }]);

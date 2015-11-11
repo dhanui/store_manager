@@ -1,0 +1,34 @@
+<h1 class="page-header">Customer Credits Summary</h1>
+
+<div class="table-responsive">
+	<table class="table table-striped products">
+		<thead>
+			<tr>
+				<th>
+					<a ng-click="order('id')">#</a>
+					<span class="sort-order" ng-show="predicate === 'id'" ng-class="{reverse:reverse}"></span>
+				</th>
+				<th>
+					<a ng-click="order('total_price')">Total Price</a>
+					<span class="sort-order" ng-show="predicate === 'total_price'" ng-class="{reverse:reverse}"></span>
+				</th>
+				<th>
+					<a ng-click="order('purchase_date')">Purchase Date</a>
+					<span class="sort-order" ng-show="predicate === 'purchase_date'" ng-class="{reverse:reverse}"></span>
+				</th>
+				<th>
+					<a ng-click="order('paid')">Paid</a>
+					<span class="sort-order" ng-show="predicate === 'paid'" ng-class="{reverse:reverse}"></span>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="credit in customer_credits track by $index | orderBy:predicate:reverse">
+				<td>{{credit.id}}</td>
+				<td>{{credit.total_price}}</td>
+				<td>{{credit.purchase_date | date: 'dd MMM yyyy HH:mm'}}</td>
+				<td>{{credit.paid}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

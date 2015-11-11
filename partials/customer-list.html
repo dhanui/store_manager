@@ -1,8 +1,8 @@
 <h1 class="page-header">Customers Summary</h1>
-			
+
 <form class="sub-header form-inline">
 	<div class="form-group">
-		<label for="search">Search</label> 
+		<label for="search">Search</label>
 		<input type="text" class="form-control" id="search" ng-model="query">
 	</div>
 </form>
@@ -32,7 +32,7 @@
 		<tbody>
 			<tr ng-repeat="customer in customers | filter:query | orderBy:predicate:reverse">
 				<td>{{customer.id}}</td>
-				<td>{{customer.name}}</td>
+				<td><a href="#/customers/{{customer.id}}/credits">{{customer.name}}</a></td>
 				<td>{{customer.address}}</td>
 				<td>{{customer.phone_number}}</td>
 			</tr>

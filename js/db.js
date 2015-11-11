@@ -2,15 +2,15 @@ function DB() {
 	var JsonDB = require("node-json-db");
 	var db = new JsonDB("data", false, false);
 	
-	var getObjectsPath = function(model) {
+	var getObjectsPath = function (model) {
 		return "/" + model;
 	};
 	
-	var getObjectPath = function(model, id) {
+	var getObjectPath = function (model, id) {
 		return "/" + model + "[" + (id - 1) + "]";
 	};
 	
-	var getNewObjectId = function(model) {
+	var getNewObjectId = function (model) {
 		try {
 			var objects = db.getData(getObjectsPath(model));
 			return objects.length + 1;
@@ -19,20 +19,22 @@ function DB() {
 		}
 	};
 	
-	this.insertObject = function(model, data) {
+	this.insertObject = function (model, data) {
 		data.id = getNewObjectId(model);
 		
 		return this.updateObject(model, data);
 	};
 	
-	this.updateObject = function(model, data) {
+	this.updateObject = function (model, data) {
+        delete model.$$hashKey;
+        
 		db.push(getObjectPath(model, data.id), data);
 		db.save();
 		
 		return data;
 	};
 	
-	this.getObjects = function(model) {
+	this.getObjects = function (model) {
 		try {
 			return db.getData(getObjectsPath(model));
 		} catch (error) {
@@ -40,7 +42,7 @@ function DB() {
 		}
 	};
 	
-	this.getObject = function(model, id) {
+	this.getObject = function (model, id) {
 		try {
 			return db.getData(getObjectPath(model, id));
 		} catch (error) {

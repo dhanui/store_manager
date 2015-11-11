@@ -3,7 +3,7 @@
 		<label for="customer_id" class="col-sm-2 control-label">Customer</label>
 		<div class="col-sm-10">
 			<select ng-model="customer_id" class="form-control" id="customer">
-				<option ng-repeat="customer in customers" value="{{customer.id}}">{{customer.name}}</option>
+				<option ng-repeat="customer in customers track by $index" value="{{customer.id}}">{{customer.name}}</option>
 			</select>
 		</div>
 	</div>
@@ -11,7 +11,7 @@
 		<label for="product" class="col-sm-2 control-label">Product</label>
 		<div class="col-sm-7">
 			<select ng-model="items[id].product_id" class="form-control" name="product">
-				<option ng-repeat="product in products" value="{{product.id}}">{{product.name}}</option>
+				<option ng-repeat="product in products track by $index" value="{{product.id}}">{{product.name}}</option>
 			</select>
 		</div>
 		<label for="quantity" class="col-sm-1 control-label">#</label>
