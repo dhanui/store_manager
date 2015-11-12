@@ -27,7 +27,10 @@
 				<td><a href="#/customers/{{credit.customer_id}}/credits/{{credit.id}}">{{credit.id}}</a></td>
 				<td>{{credit.total_price}}</td>
 				<td>{{credit.purchase_date | date: 'dd MMM yyyy HH:mm'}}</td>
-				<td>{{credit.paid}}</td>
+				<td>
+					<span ng-show="credit.paid" class="text-success">Yes</span>
+					<span ng-hide="credit.paid" class="text-danger">No</span>
+				</td>
 			</tr>
 		</tbody>
 	</table>

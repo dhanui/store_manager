@@ -31,8 +31,8 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="customer in customers | filter:query | orderBy:predicate:reverse">
-				<td>{{customer.id}}</td>
-				<td><a href="#/customers/{{customer.id}}/credits">{{customer.name}}</a></td>
+				<td><a href="#/customers/{{customer.id}}/credits">{{customer.id}}</a></td>
+				<td>{{customer.name}}</td>
 				<td>{{customer.address}}</td>
 				<td>{{customer.phone_number}}</td>
 			</tr>
