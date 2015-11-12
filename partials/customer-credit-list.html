@@ -1,7 +1,7 @@
 <h1 class="page-header">Customer Credits Summary</h1>
 
 <div class="table-responsive">
-	<table class="table table-striped products">
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>
@@ -24,7 +24,7 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="credit in customer_credits track by $index | orderBy:predicate:reverse">
-				<td>{{credit.id}}</td>
+				<td><a href="#/customers/{{credit.customer_id}}/credits/{{credit.id}}">{{credit.id}}</a></td>
 				<td>{{credit.total_price}}</td>
 				<td>{{credit.purchase_date | date: 'dd MMM yyyy HH:mm'}}</td>
 				<td>{{credit.paid}}</td>

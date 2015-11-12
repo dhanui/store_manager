@@ -1,0 +1,51 @@
+<h1 class="page-header">Customer Credit Detail</h1>
+
+<h2 class="sub-header">Customer Details</h2>
+
+<div class="table-responsive">
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td>{{customer.name}}</td>
+      </tr>
+      <tr>
+        <td>Address</td>
+        <td>{{customer.address}}</td>
+      </tr>
+      <tr>
+        <td>Phone Number</td>
+        <td>{{customer.phone_number}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 class="sub-header">Purchase Details</h2>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="product in credit.products">
+        <td>{{product.id}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.price * product.quantity}}</td>
+      </tr>
+      <tr>
+        <td colspan="4">Total</td>
+        <td>{{credit.total_price}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
