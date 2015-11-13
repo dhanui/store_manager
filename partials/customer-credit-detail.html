@@ -3,7 +3,7 @@
 <h2 class="sub-header">Customer Details</h2>
 
 <div class="table-responsive">
-  <table class="table">
+  <table class="table table-bordered">
     <tbody>
       <tr>
         <td>Name</td>
@@ -24,7 +24,7 @@
 <h2 class="sub-header">Purchase Details</h2>
 
 <div class="table-responsive">
-  <table class="table">
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th>#</th>
@@ -49,8 +49,7 @@
       <tr>
         <td colspan="4">Paid</td>
         <td>
-          <span ng-show="credit.paid" class="text-success">Yes</span>
-					<span ng-hide="credit.paid" class="text-danger">No</span>
+          <input type="checkbox" ng-click="toggle_payment()" ng-model="credit.paid">
         </td>
       </tr>
     </tbody>

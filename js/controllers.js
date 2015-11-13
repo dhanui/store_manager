@@ -61,7 +61,7 @@ apotekControllers.controller("CreditNewController", ["$scope", "$location", func
             products: [],
             total_price: 0,
             purchase_date: Date.now(),
-            paid: false
+            paid: $scope.paid
         };
 
 		for (var i = 0; i < $scope.items.length; i++) {
@@ -100,4 +100,8 @@ apotekControllers.controller("CustomerCreditListController", ["$scope", "$routeP
 apotekControllers.controller("CustomerCreditDetailController", ["$scope", "$routeParams", function($scope, $routeParams) {
 	$scope.customer = db.getObject("customers", parseInt($routeParams.customer_id));
 	$scope.credit = db.getObject("credits", parseInt($routeParams.credit_id));
+
+	$scope.toggle_payment = function () {
+		db.updateObject("credits", $scope.credit);
+	};
 }]);
