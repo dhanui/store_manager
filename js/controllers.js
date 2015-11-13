@@ -42,55 +42,56 @@ apotekControllers.controller("CustomerNewController", ["$scope", "$location", fu
 }]);
 
 apotekControllers.controller("CreditNewController", ["$scope", "$location", function($scope, $location) {
-	$scope.customers = db.getObjects("customers");
-	$scope.products = db.getObjects("products");
-	$scope.ids = [0];
-	$scope.items = [];
-
-	$scope.add_product = function () {
-		$scope.ids.push($scope.ids[$scope.ids.length - 1] + 1);
+	$scope.credit = {
+		products: [],
+		total_price: 0,
+		purchase_date: Date.now(),
 	};
 
-	$scope.submit = function () {
-		var credit = {
-            customer_id: parseInt($scope.customer_id),
-            products: [],
-            total_price: 0,
-            purchase_date: Date.now(),
-            paid: $scope.paid
-        };
+	$scope.customers = db.getObjects("customers");
+	$scope.products = db.getObjects("products");
 
-		for (var i = 0; i < $scope.items.length; i++) {
-			var product = db.getObject("products", $scope.items[i].product_id);
-			product.quantity -= $scope.items[i].quantity;
+	$scope.add_product = function (credit) {
+		credit.products.push({quantity: 1});
+	};
+
+	$scope.update_product = function (item) {
+		var product = $scope.products.filter(function (element, index, array) {
+			return element.id === parseInt(item.id);
+		})[0];
+
+		item.name = product.name;
+		item.price = product.price;
+	};
+
+	$scope.submit = function (credit) {
+		for (var i = 0; i < credit.products.length; i++) {
+			var product = $scope.products.filter(function (element, index, array) {
+				return element.id === parseInt(credit.products[i].id);
+			})[0];
+			product.quantity -= credit.products[i].quantity;
 			db.updateObject("products", product);
 
-            credit.products.push({
-								id: product.id,
-                name: product.name,
-                price: product.price,
-                quantity: $scope.items[i].quantity
-            });
-            credit.total_price += product.price * $scope.items[i].quantity;
+      credit.total_price += credit.products[i].price * credit.products[i].quantity;
 		}
 
-        db.insertObject("credits", credit);
+    db.insertObject("credits", credit);
 
 		$location.path("/products");
 	};
 }]);
 
 apotekControllers.controller("CustomerCreditListController", ["$scope", "$routeParams", function($scope, $routeParams) {
-    var all_credits = db.getObjects("credits");
-    $scope.customer_credits = all_credits.filter(function (element, index, array) {
-        return element.customer_id == parseInt($routeParams.customer_id);
-    });
+  var all_credits = db.getObjects("credits");
+  $scope.customer_credits = all_credits.filter(function (element, index, array) {
+    return element.customer_id == parseInt($routeParams.customer_id);
+  });
 
-    $scope.predicate = "id";
-    $scope.order = function (predicate) {
-			$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-			$scope.predicate = predicate;
-		};
+  $scope.predicate = "id";
+  $scope.order = function (predicate) {
+		$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+		$scope.predicate = predicate;
+	};
 }]);
 
 apotekControllers.controller("CustomerCreditDetailController", ["$scope", "$routeParams", function($scope, $routeParams) {
