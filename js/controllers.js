@@ -1,7 +1,7 @@
 var storeControllers = angular.module("storeControllers", []);
 var db = new DB();
 
-storeControllers.controller("ProductListController", ["$scope", function($scope) {
+storeControllers.controller("ProductListController", ["$scope", function ($scope) {
 	$scope.products = db.getObjects("products");
 
 	$scope.predicate = "id";
@@ -11,7 +11,7 @@ storeControllers.controller("ProductListController", ["$scope", function($scope)
 	};
 }]);
 
-storeControllers.controller("ProductNewController", ["$scope", "$location", function($scope, $location) {
+storeControllers.controller("ProductNewController", ["$scope", "$location", function ($scope, $location) {
 	$scope.product = {};
 
 	$scope.submit = function (product) {
@@ -21,7 +21,17 @@ storeControllers.controller("ProductNewController", ["$scope", "$location", func
 	};
 }]);
 
-storeControllers.controller("CustomerListController", ["$scope", function($scope) {
+storeControllers.controller("ProductUpdateController", ["$scope", "$routeParams", "$location", function ($scope, $routeParams, $location) {
+	$scope.product = db.getObject("products", parseInt($routeParams.product_id));
+
+	$scope.submit = function (product) {
+		db.updateAndSaveObject("products", product);
+
+		$location.path("/products");
+	};
+}]);
+
+storeControllers.controller("CustomerListController", ["$scope", function ($scope) {
 	$scope.customers = db.getObjects("customers");
 
 	$scope.predicate = "id";
@@ -31,7 +41,7 @@ storeControllers.controller("CustomerListController", ["$scope", function($scope
 	};
 }]);
 
-storeControllers.controller("CustomerNewController", ["$scope", "$location", function($scope, $location) {
+storeControllers.controller("CustomerNewController", ["$scope", "$location", function ($scope, $location) {
 	$scope.customer = {};
 
 	$scope.submit = function (customer) {
@@ -41,7 +51,17 @@ storeControllers.controller("CustomerNewController", ["$scope", "$location", fun
 	};
 }]);
 
-storeControllers.controller("CreditNewController", ["$scope", "$location", function($scope, $location) {
+storeControllers.controller("CustomerUpdateController", ["$scope", "$routeParams", "$location", function ($scope, $routeParams, $location) {
+	$scope.customer = db.getObject("customers", parseInt($routeParams.customer_id));
+
+	$scope.submit = function (customer) {
+		db.updateAndSaveObject("customers", customer);
+
+		$location.path("/customers");
+	};
+}]);
+
+storeControllers.controller("CreditNewController", ["$scope", "$location", function ($scope, $location) {
 	$scope.credit = {
 		products: [],
 		total_price: 0,
@@ -82,9 +102,9 @@ storeControllers.controller("CreditNewController", ["$scope", "$location", funct
 	};
 }]);
 
-storeControllers.controller("CustomerCreditListController", ["$scope", "$routeParams", function($scope, $routeParams) {
-  var all_credits = db.getObjects("credits");
-  $scope.customer_credits = all_credits.filter(function (element, index, array) {
+storeControllers.controller("CustomerCreditListController", ["$scope", "$routeParams", function ($scope, $routeParams) {
+  var credits = db.getObjects("credits");
+  $scope.customer_credits = credits.filter(function (element, index, array) {
     return element.customer_id == parseInt($routeParams.customer_id);
   });
 
@@ -95,11 +115,11 @@ storeControllers.controller("CustomerCreditListController", ["$scope", "$routePa
 	};
 }]);
 
-storeControllers.controller("CustomerCreditDetailController", ["$scope", "$routeParams", function($scope, $routeParams) {
+storeControllers.controller("CustomerCreditDetailController", ["$scope", "$routeParams", function ($scope, $routeParams) {
 	$scope.customer = db.getObject("customers", parseInt($routeParams.customer_id));
 	$scope.credit = db.getObject("credits", parseInt($routeParams.credit_id));
 
-	$scope.toggle_payment = function () {
-		db.updateObject("credits", $scope.credit);
+	$scope.toggle_payment = function (credit) {
+		db.updateObject("credits", credit);
 	};
 }]);

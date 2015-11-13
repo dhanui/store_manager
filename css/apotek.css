@@ -17,7 +17,3 @@ body {
 a[ng-click] {
 	cursor: pointer;
 }
-
-table>tbody>tr>td {
-	vertical-align: middle !important;
-}

@@ -27,6 +27,7 @@
 					<a ng-click="order('quantity')">Quantity</a>
 					<span class="sort-order" ng-show="predicate === 'quantity'" ng-class="{reverse:reverse}"></span>
 				</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,6 +36,7 @@
 				<td>{{product.name}}</td>
 				<td>{{product.price}}</td>
 				<td>{{product.quantity}}</td>
+				<td><a href="#/products/{{product.id}}" class="btn btn-primary btn-xs">Edit</a></td>
 			</tr>
 		</tbody>
 	</table>
