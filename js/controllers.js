@@ -12,12 +12,10 @@ apotekControllers.controller("ProductListController", ["$scope", function($scope
 }]);
 
 apotekControllers.controller("ProductNewController", ["$scope", "$location", function($scope, $location) {
-	$scope.submit = function () {
-		db.insertObject("products", {
-			name: $scope.name,
-			price: parseInt($scope.price),
-			quantity: parseInt($scope.quantity)
-		});
+	$scope.product = {};
+
+	$scope.submit = function (product) {
+		db.insertObject("products", product);
 
 		$location.path("/products");
 	};
@@ -34,12 +32,10 @@ apotekControllers.controller("CustomerListController", ["$scope", function($scop
 }]);
 
 apotekControllers.controller("CustomerNewController", ["$scope", "$location", function($scope, $location) {
-	$scope.submit = function () {
-		db.insertObject("customers", {
-			name: $scope.name,
-			address: $scope.address,
-			phone_number: $scope.phone_number
-		});
+	$scope.customer = {};
+
+	$scope.submit = function (customer) {
+		db.insertObject("customers", customer);
 
 		$location.path("/customers");
 	};
