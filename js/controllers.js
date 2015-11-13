@@ -6,7 +6,7 @@ apotekControllers.controller("ProductListController", ["$scope", function($scope
 
 	$scope.predicate = "id";
 	$scope.order = function (predicate) {
-		$scope.reverse = ($scope.predicate === predicate) ? ! $scope.reverse : false;
+		$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
 		$scope.predicate = predicate;
 	};
 }]);
@@ -28,7 +28,7 @@ apotekControllers.controller("CustomerListController", ["$scope", function($scop
 
 	$scope.predicate = "id";
 	$scope.order = function (predicate) {
-		$scope.reverse = ($scope.predicate === predicate) ? ! $scope.reverse : false;
+		$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
 		$scope.predicate = predicate;
 	};
 }]);
@@ -92,9 +92,9 @@ apotekControllers.controller("CustomerCreditListController", ["$scope", "$routeP
 
     $scope.predicate = "id";
     $scope.order = function (predicate) {
-		$scope.reverse = ($scope.predicate === predicate) ? ! $scope.reverse : false;
-		$scope.predicate = predicate;
-	};
+			$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+			$scope.predicate = predicate;
+		};
 }]);
 
 apotekControllers.controller("CustomerCreditDetailController", ["$scope", "$routeParams", function($scope, $routeParams) {

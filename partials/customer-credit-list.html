@@ -24,7 +24,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="credit in customer_credits track by $index | orderBy:predicate:reverse">
+			<tr ng-repeat="credit in customer_credits | orderBy:predicate:reverse">
 				<td>{{credit.id}}</td>
 				<td>{{credit.total_price}}</td>
 				<td>{{credit.purchase_date | date: 'dd MMM yyyy HH:mm'}}</td>
