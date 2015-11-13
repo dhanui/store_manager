@@ -98,7 +98,7 @@ storeControllers.controller("CreditNewController", ["$scope", "$location", funct
     db.insertObject("credits", credit);
 		db.saveObjects();
 
-		$location.path("/products");
+		$location.path("/customers/" + credit.customer_id + "/credits/" + credit.id);
 	};
 }]);
 
