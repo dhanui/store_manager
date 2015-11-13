@@ -1,7 +1,7 @@
-var apotekControllers = angular.module("apotekControllers", []);
+var storeControllers = angular.module("storeControllers", []);
 var db = new DB();
 
-apotekControllers.controller("ProductListController", ["$scope", function($scope) {
+storeControllers.controller("ProductListController", ["$scope", function($scope) {
 	$scope.products = db.getObjects("products");
 
 	$scope.predicate = "id";
@@ -11,7 +11,7 @@ apotekControllers.controller("ProductListController", ["$scope", function($scope
 	};
 }]);
 
-apotekControllers.controller("ProductNewController", ["$scope", "$location", function($scope, $location) {
+storeControllers.controller("ProductNewController", ["$scope", "$location", function($scope, $location) {
 	$scope.product = {};
 
 	$scope.submit = function (product) {
@@ -21,7 +21,7 @@ apotekControllers.controller("ProductNewController", ["$scope", "$location", fun
 	};
 }]);
 
-apotekControllers.controller("CustomerListController", ["$scope", function($scope) {
+storeControllers.controller("CustomerListController", ["$scope", function($scope) {
 	$scope.customers = db.getObjects("customers");
 
 	$scope.predicate = "id";
@@ -31,7 +31,7 @@ apotekControllers.controller("CustomerListController", ["$scope", function($scop
 	};
 }]);
 
-apotekControllers.controller("CustomerNewController", ["$scope", "$location", function($scope, $location) {
+storeControllers.controller("CustomerNewController", ["$scope", "$location", function($scope, $location) {
 	$scope.customer = {};
 
 	$scope.submit = function (customer) {
@@ -41,7 +41,7 @@ apotekControllers.controller("CustomerNewController", ["$scope", "$location", fu
 	};
 }]);
 
-apotekControllers.controller("CreditNewController", ["$scope", "$location", function($scope, $location) {
+storeControllers.controller("CreditNewController", ["$scope", "$location", function($scope, $location) {
 	$scope.credit = {
 		products: [],
 		total_price: 0,
@@ -82,7 +82,7 @@ apotekControllers.controller("CreditNewController", ["$scope", "$location", func
 	};
 }]);
 
-apotekControllers.controller("CustomerCreditListController", ["$scope", "$routeParams", function($scope, $routeParams) {
+storeControllers.controller("CustomerCreditListController", ["$scope", "$routeParams", function($scope, $routeParams) {
   var all_credits = db.getObjects("credits");
   $scope.customer_credits = all_credits.filter(function (element, index, array) {
     return element.customer_id == parseInt($routeParams.customer_id);
@@ -95,7 +95,7 @@ apotekControllers.controller("CustomerCreditListController", ["$scope", "$routeP
 	};
 }]);
 
-apotekControllers.controller("CustomerCreditDetailController", ["$scope", "$routeParams", function($scope, $routeParams) {
+storeControllers.controller("CustomerCreditDetailController", ["$scope", "$routeParams", function($scope, $routeParams) {
 	$scope.customer = db.getObject("customers", parseInt($routeParams.customer_id));
 	$scope.credit = db.getObject("credits", parseInt($routeParams.credit_id));
 

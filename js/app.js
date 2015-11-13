@@ -1,9 +1,9 @@
-var apotekApp = angular.module("apotekApp", [
+var storeApp = angular.module("storeApp", [
 	"ngRoute",
-	"apotekControllers"
+	"storeControllers"
 ]);
 
-apotekApp.config(["$routeProvider", function($routeProvider) {
+storeApp.config(["$routeProvider", function($routeProvider) {
 	$routeProvider.when("/products", {
 		templateUrl: "partials/product-list.html",
 		controller: "ProductListController"
