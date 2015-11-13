@@ -15,7 +15,7 @@ apotekControllers.controller("ProductNewController", ["$scope", "$location", fun
 	$scope.product = {};
 
 	$scope.submit = function (product) {
-		db.insertObject("products", product);
+		db.insertAndSaveObject("products", product);
 
 		$location.path("/products");
 	};
@@ -35,7 +35,7 @@ apotekControllers.controller("CustomerNewController", ["$scope", "$location", fu
 	$scope.customer = {};
 
 	$scope.submit = function (customer) {
-		db.insertObject("customers", customer);
+		db.insertAndSaveObject("customers", customer);
 
 		$location.path("/customers");
 	};
@@ -76,6 +76,7 @@ apotekControllers.controller("CreditNewController", ["$scope", "$location", func
 		}
 
     db.insertObject("credits", credit);
+		db.saveObjects();
 
 		$location.path("/products");
 	};
