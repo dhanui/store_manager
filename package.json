@@ -5,8 +5,9 @@
   "dependencies": {
     "angular": "^1.4.7",
     "angular-route": "^1.4.7",
+    "bootstrap": "^3.3.5",
     "electron-prebuilt": "^0.34.3",
-    "node-json-db": "^0.5.1",
-    "requirejs": "^2.1.20"
+    "jquery": "^2.1.4",
+    "node-json-db": "^0.5.1"
   }
 }
