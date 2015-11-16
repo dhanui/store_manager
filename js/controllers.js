@@ -1,3 +1,5 @@
+var angular = require("angular");
+
 var storeControllers = angular.module("storeControllers", []);
 var db = new DB();
 

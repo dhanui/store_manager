@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "main": "main.js",
   "dependencies": {
+    "angular": "^1.4.7",
+    "angular-route": "^1.4.7",
     "electron-prebuilt": "^0.34.3",
-    "node-json-db": "^0.5.1"
+    "node-json-db": "^0.5.1",
+    "requirejs": "^2.1.20"
   }
 }
