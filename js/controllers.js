@@ -1,8 +1,7 @@
 var storeControllers = angular.module("storeControllers", []);
-var db = new DB();
 
-storeControllers.controller("ProductListController", ["$scope", function ($scope) {
-	$scope.products = db.getObjects("products");
+storeControllers.controller("ProductListController", ["$scope", "productFactory", function ($scope, productFactory) {
+	$scope.products = productFactory.getAllProducts();
 
 	$scope.predicate = "id";
 	$scope.order = function (predicate) {
@@ -11,28 +10,28 @@ storeControllers.controller("ProductListController", ["$scope", function ($scope
 	};
 }]);
 
-storeControllers.controller("ProductNewController", ["$scope", "$location", function ($scope, $location) {
+storeControllers.controller("ProductNewController", ["$scope", "$location", "productFactory", function ($scope, $location, productFactory) {
 	$scope.product = {};
 
 	$scope.submit = function (product) {
-		db.insertAndSaveObject("products", product);
+		productFactory.createProduct(product);
 
 		$location.path("/products");
 	};
 }]);
 
-storeControllers.controller("ProductEditController", ["$scope", "$routeParams", "$location", function ($scope, $routeParams, $location) {
-	$scope.product = db.getObject("products", parseInt($routeParams.product_id));
+storeControllers.controller("ProductEditController", ["$scope", "$routeParams", "$location", "productFactory", function ($scope, $routeParams, $location, productFactory) {
+	$scope.product = productFactory.getProduct($routeParams.product_id);
 
 	$scope.submit = function (product) {
-		db.updateAndSaveObject("products", product);
+		productFactory.updateProduct(product);
 
 		$location.path("/products");
 	};
 }]);
 
-storeControllers.controller("CustomerListController", ["$scope", function ($scope) {
-	$scope.customers = db.getObjects("customers");
+storeControllers.controller("CustomerListController", ["$scope", "customerFactory", function ($scope, customerFactory) {
+	$scope.customers = customerFactory.getAllCustomers();
 
 	$scope.predicate = "id";
 	$scope.order = function (predicate) {
@@ -41,35 +40,35 @@ storeControllers.controller("CustomerListController", ["$scope", function ($scop
 	};
 }]);
 
-storeControllers.controller("CustomerNewController", ["$scope", "$location", function ($scope, $location) {
+storeControllers.controller("CustomerNewController", ["$scope", "$location", "customerFactory", function ($scope, $location, customerFactory) {
 	$scope.customer = {};
 
 	$scope.submit = function (customer) {
-		db.insertAndSaveObject("customers", customer);
+		customerFactory.createCustomer(customer);
 
 		$location.path("/customers");
 	};
 }]);
 
-storeControllers.controller("CustomerEditController", ["$scope", "$routeParams", "$location", function ($scope, $routeParams, $location) {
-	$scope.customer = db.getObject("customers", parseInt($routeParams.customer_id));
+storeControllers.controller("CustomerEditController", ["$scope", "$routeParams", "$location", "customerFactory", function ($scope, $routeParams, $location, customerFactory) {
+	$scope.customer = customerFactory.getCustomer($routeParams.customer_id);
 
 	$scope.submit = function (customer) {
-		db.updateAndSaveObject("customers", customer);
+		customerFactory.updateCustomer(customer);
 
 		$location.path("/customers");
 	};
 }]);
 
-storeControllers.controller("CreditNewController", ["$scope", "$location", function ($scope, $location) {
+storeControllers.controller("CreditNewController", ["$scope", "$location", "productFactory", "customerFactory", "creditFactory", function ($scope, $location, productFactory, customerFactory, creditFactory) {
 	$scope.credit = {
 		products: [{quantity: 1}],
 		total_price: 0,
 		purchase_date: Date.now(),
 	};
 
-	$scope.customers = db.getObjects("customers");
-	$scope.products = db.getObjects("products");
+	$scope.customers = customerFactory.getAllCustomers();
+	$scope.products = productFactory.getAllProducts();
 
 	$scope.add_product = function (credit) {
 		credit.products.push({quantity: 1});
@@ -85,28 +84,14 @@ storeControllers.controller("CreditNewController", ["$scope", "$location", funct
 	};
 
 	$scope.submit = function (credit) {
-		for (var i = 0; i < credit.products.length; i++) {
-			var product = $scope.products.filter(function (element, index, array) {
-				return element.id === parseInt(credit.products[i].id);
-			})[0];
-			product.quantity -= credit.products[i].quantity;
-			db.updateObject("products", product);
-
-      credit.total_price += credit.products[i].price * credit.products[i].quantity;
-		}
-
-    db.insertObject("credits", credit);
-		db.saveObjects();
+		creditFactory.createCredit(credit);
 
 		$location.path("/customers/" + credit.customer_id + "/credits/" + credit.id);
 	};
 }]);
 
-storeControllers.controller("CustomerCreditListController", ["$scope", "$routeParams", function ($scope, $routeParams) {
-  var credits = db.getObjects("credits");
-  $scope.customer_credits = credits.filter(function (element, index, array) {
-    return element.customer_id == parseInt($routeParams.customer_id);
-  });
+storeControllers.controller("CustomerCreditListController", ["$scope", "$routeParams", "creditFactory", function ($scope, $routeParams, creditFactory) {
+  $scope.customer_credits = creditFactory.getAllCustomerCredits($routeParams.customer_id);
 
   $scope.predicate = "id";
   $scope.order = function (predicate) {
@@ -115,34 +100,25 @@ storeControllers.controller("CustomerCreditListController", ["$scope", "$routePa
 	};
 }]);
 
-storeControllers.controller("CustomerCreditDetailController", ["$scope", "$routeParams", function ($scope, $routeParams) {
-	$scope.customer = db.getObject("customers", parseInt($routeParams.customer_id));
-	$scope.credit = db.getObject("credits", parseInt($routeParams.credit_id));
+storeControllers.controller("CustomerCreditDetailController", ["$scope", "$routeParams", "customerFactory", "creditFactory", function ($scope, $routeParams, customerFactory, creditFactory) {
+	$scope.customer = customerFactory.getCustomer($routeParams.customer_id);
+	$scope.credit = creditFactory.getCredit($routeParams.credit_id);
 
 	$scope.toggle_payment = function (credit) {
-		db.updateObject("credits", credit);
+		creditFactory.updateCredit(credit);
 	};
 }]);
 
-storeControllers.controller("SupplyEditController", ["$scope", "$location", function ($scope, $location) {
+storeControllers.controller("SupplyEditController", ["$scope", "$location", "productFactory", function ($scope, $location, productFactory) {
 	$scope.items = [{quantity: 0}];
-	$scope.products = db.getObjects("products");
+	$scope.products = productFactory.getAllProducts();
 
 	$scope.add_product = function (items) {
 		items.push({quantity: 0});
 	};
 
 	$scope.submit = function (items) {
-		for (var i = 0; i < items.length; i++) {
-			var product = $scope.products.filter(function (element, index, array) {
-				return element.id === parseInt(items[i].id);
-			})[0];
-
-			product.quantity += items[i].quantity;
-			db.updateObject("products", product);
-		}
-
-		db.saveObjects();
+		productFactory.updateProductQuantities(items);
 
 		$location.path("/products");
 	};

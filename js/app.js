@@ -1,6 +1,7 @@
 var storeApp = angular.module("storeApp", [
 	"ngRoute",
-	"storeControllers"
+	"storeControllers",
+	"storeFactories"
 ]);
 
 storeApp.config(["$routeProvider", function($routeProvider) {
