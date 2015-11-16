@@ -1,5 +1,4 @@
 function DB() {
-	var JsonDB = require("node-json-db");
 	var db = new JsonDB("data", false, false);
 
 	var getObjectsPath = function (model) {

@@ -1,6 +1,3 @@
-var angular = require("angular");
-var angular_route = require("angular-route");
-
 var storeApp = angular.module("storeApp", [
 	"ngRoute",
 	"storeControllers"
