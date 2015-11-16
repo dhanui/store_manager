@@ -63,7 +63,7 @@ storeControllers.controller("CustomerUpdateController", ["$scope", "$routeParams
 
 storeControllers.controller("CreditNewController", ["$scope", "$location", function ($scope, $location) {
 	$scope.credit = {
-		products: [],
+		products: [{quantity: 1}],
 		total_price: 0,
 		purchase_date: Date.now(),
 	};
