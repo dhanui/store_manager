@@ -11,8 +11,11 @@ storeApp.config(["$routeProvider", function($routeProvider) {
 		templateUrl: "partials/product-new.html",
 		controller: "ProductNewController"
 	}).when("/products/:product_id", {
-		templateUrl: "partials/product-update.html",
-		controller: "ProductUpdateController"
+		templateUrl: "partials/product-edit.html",
+		controller: "ProductEditController"
+	}).when("/supplies/edit", {
+		templateUrl: "partials/supply-edit.html",
+		controller: "SupplyEditController"
 	}).when("/customers", {
 		templateUrl: "partials/customer-list.html",
 		controller: "CustomerListController"
@@ -20,8 +23,8 @@ storeApp.config(["$routeProvider", function($routeProvider) {
 		templateUrl: "partials/customer-new.html",
 		controller: "CustomerNewController"
 	}).when("/customers/:customer_id", {
-		templateUrl: "partials/customer-update.html",
-		controller: "CustomerUpdateController"
+		templateUrl: "partials/customer-edit.html",
+		controller: "CustomerEditController"
 	}).when("/credits/new", {
 		templateUrl: "partials/credit-new.html",
 		controller: "CreditNewController"

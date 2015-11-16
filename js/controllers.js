@@ -21,7 +21,7 @@ storeControllers.controller("ProductNewController", ["$scope", "$location", func
 	};
 }]);
 
-storeControllers.controller("ProductUpdateController", ["$scope", "$routeParams", "$location", function ($scope, $routeParams, $location) {
+storeControllers.controller("ProductEditController", ["$scope", "$routeParams", "$location", function ($scope, $routeParams, $location) {
 	$scope.product = db.getObject("products", parseInt($routeParams.product_id));
 
 	$scope.submit = function (product) {
@@ -51,7 +51,7 @@ storeControllers.controller("CustomerNewController", ["$scope", "$location", fun
 	};
 }]);
 
-storeControllers.controller("CustomerUpdateController", ["$scope", "$routeParams", "$location", function ($scope, $routeParams, $location) {
+storeControllers.controller("CustomerEditController", ["$scope", "$routeParams", "$location", function ($scope, $routeParams, $location) {
 	$scope.customer = db.getObject("customers", parseInt($routeParams.customer_id));
 
 	$scope.submit = function (customer) {
@@ -121,5 +121,29 @@ storeControllers.controller("CustomerCreditDetailController", ["$scope", "$route
 
 	$scope.toggle_payment = function (credit) {
 		db.updateObject("credits", credit);
+	};
+}]);
+
+storeControllers.controller("SupplyEditController", ["$scope", "$location", function ($scope, $location) {
+	$scope.items = [{quantity: 0}];
+	$scope.products = db.getObjects("products");
+
+	$scope.add_product = function (items) {
+		items.push({quantity: 0});
+	};
+
+	$scope.submit = function (items) {
+		for (var i = 0; i < items.length; i++) {
+			var product = $scope.products.filter(function (element, index, array) {
+				return element.id === parseInt(items[i].id);
+			})[0];
+
+			product.quantity += items[i].quantity;
+			db.updateObject("products", product);
+		}
+
+		db.saveObjects();
+
+		$location.path("/products");
 	};
 }]);
