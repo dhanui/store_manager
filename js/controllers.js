@@ -1,5 +1,15 @@
 var storeControllers = angular.module("storeControllers", []);
 
+var compareNames = function (a, b) {
+	if (a.name < b.name) {
+		return -1;
+	}
+	if (a.name > b.name) {
+		return 1;
+	}
+	return 0;
+}
+
 storeControllers.controller("ProductListController", ["$scope", "productFactory", function ($scope, productFactory) {
 	$scope.products = productFactory.getAllProducts();
 
@@ -71,13 +81,13 @@ storeControllers.controller("CreditNewController", ["$scope", "$location", "prod
 		purchase_date: Date.now(),
 	};
 
-	$scope.customers = customerFactory.getAllCustomers();
-	$scope.products = productFactory.getAllProducts();
+	$scope.customers = customerFactory.getAllCustomers().sort(compareNames);
+	$scope.products = productFactory.getAllProducts().sort(compareNames);
 
 	$scope.update_total_price = function (credit) {
 		credit.total_price = credit.products.reduce(function (previousValue, element, index, array) {
-			return previousValue + element.price * element.quantity;
-		}, 0) || 0;
+			return previousValue + (element.price * element.quantity || 0);
+		}, 0);
 	}
 
 	$scope.add_product = function (credit) {
@@ -129,7 +139,7 @@ storeControllers.controller("CustomerCreditDetailController", ["$scope", "$route
 
 storeControllers.controller("SupplyEditController", ["$scope", "$location", "productFactory", function ($scope, $location, productFactory) {
 	$scope.items = [{}];
-	$scope.products = productFactory.getAllProducts();
+	$scope.products = productFactory.getAllProducts().sort(compareNames);
 
 	$scope.add_product = function (items) {
 		items.push({});
