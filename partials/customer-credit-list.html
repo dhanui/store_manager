@@ -26,7 +26,7 @@
 		<tbody>
 			<tr ng-repeat="credit in customer_credits | orderBy:predicate:reverse">
 				<td>{{credit.id}}</td>
-				<td>{{credit.total_price}}</td>
+				<td>Rp{{credit.total_price}}.00</td>
 				<td>{{credit.purchase_date | date: 'dd MMM yyyy HH:mm'}}</td>
 				<td>
 					<span ng-show="credit.paid" class="text-success">Yes</span>

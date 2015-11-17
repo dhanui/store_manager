@@ -38,13 +38,13 @@
       <tr ng-repeat="product in credit.products">
         <td>{{product.id}}</td>
         <td>{{product.name}}</td>
-        <td>{{product.price}}</td>
+        <td>Rp{{product.price}}.00</td>
         <td>{{product.quantity}}</td>
-        <td>{{product.price * product.quantity}}</td>
+        <td>Rp{{product.price * product.quantity}}.00</td>
       </tr>
       <tr>
         <td colspan="4">Total</td>
-        <td>{{credit.total_price}}</td>
+        <td>Rp{{credit.total_price}}.00</td>
       </tr>
       <tr>
         <td colspan="4">Paid</td>
