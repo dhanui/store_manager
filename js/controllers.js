@@ -11,6 +11,7 @@ storeControllers.controller("ProductListController", ["$scope", "productFactory"
 }]);
 
 storeControllers.controller("ProductNewController", ["$scope", "$location", "productFactory", function ($scope, $location, productFactory) {
+	$scope.title = "New Product";
 	$scope.product = {};
 
 	$scope.submit = function (product) {
@@ -21,6 +22,7 @@ storeControllers.controller("ProductNewController", ["$scope", "$location", "pro
 }]);
 
 storeControllers.controller("ProductEditController", ["$scope", "$routeParams", "$location", "productFactory", function ($scope, $routeParams, $location, productFactory) {
+	$scope.title = "Update Product";
 	$scope.product = productFactory.getProduct($routeParams.product_id);
 
 	$scope.submit = function (product) {

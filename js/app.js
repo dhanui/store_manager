@@ -9,7 +9,7 @@ storeApp.config(["$routeProvider", function($routeProvider) {
 		templateUrl: "partials/product-list.html",
 		controller: "ProductListController"
 	}).when("/products/new", {
-		templateUrl: "partials/product-new.html",
+		templateUrl: "partials/product-edit.html",
 		controller: "ProductNewController"
 	}).when("/products/:product_id", {
 		templateUrl: "partials/product-edit.html",
