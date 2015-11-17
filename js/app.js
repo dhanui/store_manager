@@ -27,7 +27,7 @@ storeApp.config(["$routeProvider", function($routeProvider) {
 		templateUrl: "partials/customer-form.html",
 		controller: "CustomerEditController"
 	}).when("/credits/new", {
-		templateUrl: "partials/credit-new.html",
+		templateUrl: "partials/credit-form.html",
 		controller: "CreditNewController"
 	}).when("/customers/:customer_id/credits", {
     templateUrl: "partials/customer-credit-list.html",

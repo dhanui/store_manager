@@ -66,7 +66,7 @@ storeControllers.controller("CustomerEditController", ["$scope", "$routeParams",
 
 storeControllers.controller("CreditNewController", ["$scope", "$location", "productFactory", "customerFactory", "creditFactory", function ($scope, $location, productFactory, customerFactory, creditFactory) {
 	$scope.credit = {
-		products: [{quantity: 1}],
+		products: [{}],
 		total_price: 0,
 		purchase_date: Date.now(),
 	};
@@ -75,7 +75,7 @@ storeControllers.controller("CreditNewController", ["$scope", "$location", "prod
 	$scope.products = productFactory.getAllProducts();
 
 	$scope.add_product = function (credit) {
-		credit.products.push({quantity: 1});
+		credit.products.push({});
 	};
 
 	$scope.update_product = function (item) {
