@@ -114,11 +114,11 @@ storeControllers.controller("CustomerCreditDetailController", ["$scope", "$route
 }]);
 
 storeControllers.controller("SupplyEditController", ["$scope", "$location", "productFactory", function ($scope, $location, productFactory) {
-	$scope.items = [{quantity: 0}];
+	$scope.items = [{}];
 	$scope.products = productFactory.getAllProducts();
 
 	$scope.add_product = function (items) {
-		items.push({quantity: 0});
+		items.push({});
 	};
 
 	$scope.submit = function (items) {

@@ -15,7 +15,7 @@ storeApp.config(["$routeProvider", function($routeProvider) {
 		templateUrl: "partials/product-form.html",
 		controller: "ProductEditController"
 	}).when("/supplies/edit", {
-		templateUrl: "partials/supply-edit.html",
+		templateUrl: "partials/supply-form.html",
 		controller: "SupplyEditController"
 	}).when("/customers", {
 		templateUrl: "partials/customer-list.html",
