@@ -74,22 +74,31 @@ storeControllers.controller("CreditNewController", ["$scope", "$location", "prod
 	$scope.customers = customerFactory.getAllCustomers();
 	$scope.products = productFactory.getAllProducts();
 
+	var update_total_price = function (credit) {
+		credit.total_price = credit.products.reduce(function (previousValue, element, index, array) {
+			return previousValue + element.price * element.quantity;
+		}, 0) || 0;
+	}
+
 	$scope.add_product = function (credit) {
 		credit.products.push({});
 	};
 
-	$scope.update_product = function (item) {
+	$scope.update_product = function (credit, item) {
 		var product = $scope.products.filter(function (element, index, array) {
-			return element.id === parseInt(item.id);
+			return element.id == item.id;
 		})[0];
 
 		item.name = product.name;
 		item.price = product.price;
 		item.max = product.quantity;
 
-		$scope.credit.total_price = $scope.credit.products.reduce(function (previousValue, element, index, array) {
-			return previousValue + element.price * element.quantity;
-		}, 0) || 0;
+		update_total_price(credit);
+	};
+
+	$scope.remove_product = function (credit, index) {
+		credit.products.splice(index, 1);
+		update_total_price(credit);
 	};
 
 	$scope.submit = function (credit) {
