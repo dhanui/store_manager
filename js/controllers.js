@@ -8,15 +8,19 @@ var compareNames = function (a, b) {
 		return 1;
 	}
 	return 0;
-}
+};
+
+var order = function (scope, predicate) {
+	scope.reverse = (scope.predicate === predicate) ? !scope.reverse : false;
+	scope.predicate = predicate;
+};
 
 storeControllers.controller("ProductListController", ["$scope", "productFactory", function ($scope, productFactory) {
 	$scope.products = productFactory.getAllProducts();
 
 	$scope.predicate = "id";
 	$scope.order = function (predicate) {
-		$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-		$scope.predicate = predicate;
+		order($scope, predicate);
 	};
 }]);
 
@@ -47,8 +51,7 @@ storeControllers.controller("CustomerListController", ["$scope", "customerFactor
 
 	$scope.predicate = "id";
 	$scope.order = function (predicate) {
-		$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-		$scope.predicate = predicate;
+		order($scope, predicate);
 	};
 }]);
 
@@ -123,8 +126,7 @@ storeControllers.controller("CustomerCreditListController", ["$scope", "$routePa
 
   $scope.predicate = "id";
   $scope.order = function (predicate) {
-		$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-		$scope.predicate = predicate;
+		order($scope, predicate);
 	};
 }]);
 
