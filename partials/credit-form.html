@@ -12,26 +12,43 @@
 	</div>
 	<div class="form-group" ng-repeat="item in credit.products">
 		<span ng-class="{'has-error':form.product_{{$index}}.$invalid}">
-			<label for="product_{{$index}}" class="col-sm-2 control-label">Product</label>
-			<div class="col-sm-7">
+			<label for="product_{{$index}}" class="col-sm-2 control-label">Product {{$index + 1}}</label>
+			<div class="col-sm-4">
 				<select ng-model="item.id" class="form-control" name="product_{{$index}}" ng-change="update_product(item)" required>
-					<option ng-repeat="product in products" value="{{product.id}}">{{product.name}} @ Rp{{product.price}}.00</option>
+					<option ng-repeat="product in products" value="{{product.id}}">{{product.name}} @ Rp{{product.price}}.00 ({{product.quantity}})</option>
 				</select>
 				<span class="help-block" ng-show="form.product_{{$index}}.$error.required">Product cannot be empty</span>
 			</div>
 		</span>
 		<span ng-class="{'has-error':form.quantity_{{$index}}.$invalid}">
-			<label for="quantity_{{$index}}" class="col-sm-1 control-label">Quantity</label>
+			<label for="quantity_{{$index}}" class="col-sm-1 control-label">x</label>
 			<div class="col-sm-2">
-				<input ng-model="item.quantity" type="number" min="1" class="form-control" name="quantity_{{$index}}" required>
+				<input ng-model="item.quantity" ng-change="update_product(item)" type="number" min="1" max="{{item.max}}" class="form-control" name="quantity_{{$index}}" ng-disabled="item.id == undefined" required>
 				<span class="help-block" ng-show="form.quantity_{{$index}}.$error.required">Cannot be empty</span>
 				<span class="help-block" ng-show="form.quantity_{{$index}}.$error.min">Must be at least 1</span>
+				<span class="help-block" ng-show="form.quantity_{{$index}}.$error.max">Must be at most {{item.max}}</span>
 			</div>
 		</span>
+		<label for="price_{{$index}}" class="col-sm-1 control-label">=</label>
+		<div class="col-sm-2">
+			<div class="input-group">
+				<span class="input-group-addon">Rp</span>
+				<input name="price_{{$index}}" type="number" class="form-control" value="{{item.price * item.quantity || 0}}" readonly>
+			</div>
+		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
 			<a ng-click="add_product(credit)" class="btn btn-primary">Add Product</a>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="total_price" class="col-sm-offset-9 col-sm-1 control-label">Total</label>
+		<div class="col-sm-2">
+			<div class="input-group">
+				<span class="input-group-addon">Rp</span>
+				<input name="total_price" type="number" class="form-control" value="{{credit.total_price}}" readonly>
+			</div>
 		</div>
 	</div>
 	<div class="form-group">

@@ -1,9 +1,9 @@
 <h1 class="page-header">Supply Management</h1>
 
 <form name="form" class="form-horizontal" ng-submit="submit(items)">
-  <div class="form-group row" ng-repeat="item in items">
+  <div class="form-group" ng-repeat="item in items">
     <span ng-class="{'has-error':form.product_{{$index}}.$invalid}">
-      <label for="product_{{$index}}" class="col-sm-2 control-label">Product</label>
+      <label for="product_{{$index}}" class="col-sm-2 control-label">Product {{$index + 1}}</label>
       <div class="col-sm-7">
         <select ng-model="item.id" class="form-control" name="product_{{$index}}" required>
           <option ng-repeat="product in products" value="{{product.id}}">{{product.name}}</option>

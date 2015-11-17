@@ -85,6 +85,11 @@ storeControllers.controller("CreditNewController", ["$scope", "$location", "prod
 
 		item.name = product.name;
 		item.price = product.price;
+		item.max = product.quantity;
+
+		$scope.credit.total_price = $scope.credit.products.reduce(function (previousValue, element, index, array) {
+			return previousValue + element.price * element.quantity;
+		}, 0) || 0;
 	};
 
 	$scope.submit = function (credit) {

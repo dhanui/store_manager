@@ -19,7 +19,7 @@ storeFactories.factory("productFactory", [function () {
       var products = this.getAllProducts();
       for (var i = 0; i < items.length; i++) {
   			var product = products.filter(function (element, index, array) {
-  				return element.id === parseInt(items[i].id);
+  				return element.id == items[i].id;
   			})[0];
 
   			product.quantity += items[i].quantity;
@@ -51,17 +51,15 @@ storeFactories.factory("customerFactory", [function () {
 storeFactories.factory("creditFactory", ["productFactory", function (productFactory) {
   return {
     createCredit: function (credit) {
-      // Update products' quantities and credit total price
+      // Update products' quantities
       var products = productFactory.getAllProducts();
 
       for (var i = 0; i < credit.products.length; i++) {
   			var product = products.filter(function (element, index, array) {
-          return element.id === parseInt(credit.products[i].id);
+          return element.id == credit.products[i].id;
         })[0];
   			product.quantity -= credit.products[i].quantity;
   			db.updateObject("products", product);
-
-        credit.total_price += credit.products[i].price * credit.products[i].quantity;
   		}
 
       db.insertObject("credits", credit);
@@ -69,7 +67,7 @@ storeFactories.factory("creditFactory", ["productFactory", function (productFact
     },
     getAllCustomerCredits: function (customerId) {
       return db.getObjects("credits").filter(function (element, index, array) {
-        return parseInt(element.customer_id) === parseInt(customerId);
+        return element.customer_id == customerId;
       });
     },
     getCredit: function (creditId) {
