@@ -15,7 +15,7 @@
 			<label for="product_{{$index}}" class="col-sm-2 control-label">Product {{$index + 1}}</label>
 			<div class="col-sm-4">
 				<select ng-model="item.id" class="form-control" name="product_{{$index}}" ng-change="update_product(item)" required>
-					<option ng-repeat="product in products" value="{{product.id}}">{{product.name}} @ Rp{{product.price}}.00 ({{product.quantity}})</option>
+					<option ng-repeat="product in products" value="{{product.id}}">{{product.name}} @ Rp{{product.price}} ({{product.quantity}})</option>
 				</select>
 				<span class="help-block" ng-show="form.product_{{$index}}.$error.required">Product cannot be empty</span>
 			</div>

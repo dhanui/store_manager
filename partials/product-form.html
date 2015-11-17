@@ -14,10 +14,9 @@
 			<div class="input-group">
 				<span class="input-group-addon">Rp</span>
 				<input type="number" min="100" ng-model="product.price" class="form-control" name="price" placeholder="Price" aria-describedby="price-help-block-1 price-help-block-2" required>
-				<span class="input-group-addon">.00</span>
 			</div>
 			<span id="price-help-block-1" class="help-block" ng-show="form.price.$error.required">Price cannot be empty</span>
-			<span id="price-help-block-2" class="help-block" ng-show="form.price.$error.min">Price must be at least Rp100,00</span>
+			<span id="price-help-block-2" class="help-block" ng-show="form.price.$error.min">Price must be at least Rp100</span>
 		</div>
 	</div>
 	<div class="form-group" ng-class="{'has-error':form.quantity.$invalid}">

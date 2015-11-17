@@ -34,7 +34,7 @@
 			<tr ng-repeat="product in products | filter:query | orderBy:predicate:reverse">
 				<td>{{product.id}}</td>
 				<td>{{product.name}}</td>
-				<td>Rp{{product.price}}.00</td>
+				<td>Rp{{product.price}}</td>
 				<td>{{product.quantity}}</td>
 				<td><a href="#/products/{{product.id}}" class="btn btn-primary btn-xs">Edit</a></td>
 			</tr>
