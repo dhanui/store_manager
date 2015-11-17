@@ -23,7 +23,7 @@
 		<span ng-class="{'has-error':form.quantity_{{$index}}.$invalid}">
 			<label for="quantity_{{$index}}" class="col-sm-1 control-label">x</label>
 			<div class="col-sm-1">
-				<input ng-model="item.quantity" ng-change="update_product(credit, item)" type="number" min="1" max="{{item.max}}" class="form-control" name="quantity_{{$index}}" ng-disabled="item.id == undefined" required>
+				<input ng-model="item.quantity" ng-change="update_total_price(credit)" type="number" min="1" max="{{item.max}}" class="form-control" name="quantity_{{$index}}" ng-disabled="item.id == undefined" required>
 				<span class="help-block" ng-show="form.quantity_{{$index}}.$error.required">Cannot be empty</span>
 				<span class="help-block" ng-show="form.quantity_{{$index}}.$error.min">Must be at least 1</span>
 				<span class="help-block" ng-show="form.quantity_{{$index}}.$error.max">Must be at most {{item.max}}</span>

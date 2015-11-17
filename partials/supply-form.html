@@ -4,9 +4,9 @@
   <div class="form-group" ng-repeat="item in items">
     <span ng-class="{'has-error':form.product_{{$index}}.$invalid}">
       <label for="product_{{$index}}" class="col-sm-2 control-label">Product {{$index + 1}}</label>
-      <div class="col-sm-7">
-        <select ng-model="item.id" class="form-control" name="product_{{$index}}" required>
-          <option ng-repeat="product in products" value="{{product.id}}">{{product.name}}</option>
+      <div class="col-sm-6">
+        <select ng-model="item.id" class="form-control" name="product_{{$index}}" ng-change="update_product(item)" required>
+          <option ng-repeat="product in products" value="{{product.id}}">{{product.name}} ({{product.quantity}})</option>
         </select>
         <span class="help-block" ng-show="form.product_{{$index}}.$error.required">Product cannot be empty</span>
       </div>
@@ -14,10 +14,14 @@
     <span ng-class="{'has-error':form.quantity_{{$index}}.$invalid}">
       <label for="quantity_{{$index}}" class="col-sm-1 control-label">Quantity</label>
       <div class="col-sm-2">
-        <input ng-model="item.quantity" type="number" class="form-control" name="quantity_{{$index}}" required>
+        <input ng-model="item.quantity" type="number" min=-{{item.max}} class="form-control" name="quantity_{{$index}}" ng-disabled="item.id == undefined" required>
         <span class="help-block" ng-show="form.quantity_{{$index}}.$error.required">Cannot be empty</span>
+        <span class="help-block" ng-show="form.quantity_{{$index}}.$error.min">Must be at least -{{item.max}}</span>
       </div>
     </span>
+    <div class="col-sm-1">
+      <a ng-click="remove_product(items, $index)" class="btn btn-danger" ng-disabled="items.length < 2">x</a>
+    </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
