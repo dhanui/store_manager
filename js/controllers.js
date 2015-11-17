@@ -43,6 +43,7 @@ storeControllers.controller("CustomerListController", ["$scope", "customerFactor
 }]);
 
 storeControllers.controller("CustomerNewController", ["$scope", "$location", "customerFactory", function ($scope, $location, customerFactory) {
+	$scope.title = "New Customer";
 	$scope.customer = {};
 
 	$scope.submit = function (customer) {
@@ -53,6 +54,7 @@ storeControllers.controller("CustomerNewController", ["$scope", "$location", "cu
 }]);
 
 storeControllers.controller("CustomerEditController", ["$scope", "$routeParams", "$location", "customerFactory", function ($scope, $routeParams, $location, customerFactory) {
+	$scope.title = "Update Customer";
 	$scope.customer = customerFactory.getCustomer($routeParams.customer_id);
 
 	$scope.submit = function (customer) {

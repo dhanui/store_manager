@@ -9,10 +9,10 @@ storeApp.config(["$routeProvider", function($routeProvider) {
 		templateUrl: "partials/product-list.html",
 		controller: "ProductListController"
 	}).when("/products/new", {
-		templateUrl: "partials/product-edit.html",
+		templateUrl: "partials/product-form.html",
 		controller: "ProductNewController"
 	}).when("/products/:product_id", {
-		templateUrl: "partials/product-edit.html",
+		templateUrl: "partials/product-form.html",
 		controller: "ProductEditController"
 	}).when("/supplies/edit", {
 		templateUrl: "partials/supply-edit.html",
@@ -21,10 +21,10 @@ storeApp.config(["$routeProvider", function($routeProvider) {
 		templateUrl: "partials/customer-list.html",
 		controller: "CustomerListController"
 	}).when("/customers/new", {
-		templateUrl: "partials/customer-new.html",
+		templateUrl: "partials/customer-form.html",
 		controller: "CustomerNewController"
 	}).when("/customers/:customer_id", {
-		templateUrl: "partials/customer-edit.html",
+		templateUrl: "partials/customer-form.html",
 		controller: "CustomerEditController"
 	}).when("/credits/new", {
 		templateUrl: "partials/credit-new.html",
