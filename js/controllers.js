@@ -85,7 +85,9 @@ storeControllers.controller("CreditNewController", ["$scope", "$location", "prod
 	};
 
 	$scope.customers = customerFactory.getAllCustomers().sort(compareNames);
-	$scope.products = productFactory.getAllProducts().sort(compareNames);
+	$scope.products = productFactory.getAllProducts().filter(function (element, index, array) {
+		return element.quantity > 0;
+	}).sort(compareNames);
 
 	$scope.update_total_price = function (credit) {
 		credit.total_price = credit.products.reduce(function (previousValue, element, index, array) {
