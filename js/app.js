@@ -1,3 +1,8 @@
+var angular = require("angular");
+var angularRoute = require("angular-route");
+var factories = require("./factories");
+var controllers = require("./controllers");
+
 var storeApp = angular.module("storeApp", [
 	"ngRoute",
 	"storeControllers",

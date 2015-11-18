@@ -1,3 +1,6 @@
+var angular = require("angular");
+var factories = require("./factories");
+
 var storeControllers = angular.module("storeControllers", []);
 
 var compareNames = function (a, b) {

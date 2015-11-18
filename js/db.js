@@ -1,3 +1,5 @@
+var JsonDB = require("node-json-db");
+
 function DB() {
 	var db = new JsonDB("data", false, false);
 
@@ -70,3 +72,5 @@ function DB() {
 		}
 	};
 }
+
+module.exports = DB;

@@ -1,3 +1,6 @@
+var angular = require("angular");
+var DB = require("./db");
+
 var storeFactories = angular.module("storeFactories", []);
 var db = new DB();
 
