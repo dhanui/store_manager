@@ -4,6 +4,21 @@ var DB = require("./db");
 var storeFactories = angular.module("storeFactories", []);
 var db = new DB();
 
+storeFactories.factory("settingFactory", [function () {
+  return {
+    getSettings: function () {
+      return db.getObject("settings", 1);
+    },
+    saveSettings: function (settings) {
+      if (this.getSettings() == undefined) {
+        return db.insertAndSaveObject("settings", settings);
+      } else {
+        return db.updateAndSaveObject("settings", settings);
+      }
+    }
+  }
+}]);
+
 storeFactories.factory("productFactory", [function () {
   return {
     getAllProducts: function () {

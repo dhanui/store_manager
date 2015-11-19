@@ -10,7 +10,10 @@ var storeApp = angular.module("storeApp", [
 ]);
 
 storeApp.config(["$routeProvider", function($routeProvider) {
-	$routeProvider.when("/products", {
+	$routeProvider.when("/", {
+		templateUrl: "partials/welcome.html",
+		controller: "WelcomeController"
+	}).when("/products", {
 		templateUrl: "partials/product-list.html",
 		controller: "ProductListController"
 	}).when("/products/new", {

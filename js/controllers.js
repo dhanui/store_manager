@@ -18,6 +18,27 @@ var order = function (scope, predicate) {
 	scope.predicate = predicate;
 };
 
+storeControllers.controller("WelcomeController", ["$rootScope", "$scope", "$location", "settingFactory", function ($rootScope, $scope, $location, settingFactory) {
+	$rootScope.settings = settingFactory.getSettings() || {};
+
+	if (Object.keys($rootScope.settings).length != 0) {
+		$location.path("/products");
+	}
+
+	$scope.submit = function (settings) {
+		settingFactory.saveSettings(settings);
+		$rootScope.settings = settings;
+		$location.path("/products");
+	};
+}]);
+
+storeControllers.controller("SettingEditController", ["$rootScope", "$scope", "settingFactory", function ($rootScope, $scope, settingFactory) {
+	$scope.submit = function (settings) {
+		settingFactory.saveSettings(settings);
+		$rootScope.settings = settings;
+	};
+}]);
+
 storeControllers.controller("ProductListController", ["$scope", "productFactory", function ($scope, productFactory) {
 	$scope.products = productFactory.getAllProducts();
 
