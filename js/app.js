@@ -43,6 +43,9 @@ storeApp.config(["$routeProvider", function($routeProvider) {
   }).when("/customers/:customer_id/credits/:credit_id", {
 		templateUrl: "partials/customer-credit-detail.html",
 		controller: "CustomerCreditDetailController"
+	}).when("/settings", {
+		templateUrl: "partials/setting-form.html",
+		controller: "SettingEditController"
 	}).otherwise({
 		redirectTo: "/products"
 	});

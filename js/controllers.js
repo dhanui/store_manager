@@ -20,6 +20,7 @@ var order = function (scope, predicate) {
 
 storeControllers.controller("WelcomeController", ["$rootScope", "$scope", "$location", "settingFactory", function ($rootScope, $scope, $location, settingFactory) {
 	$rootScope.settings = settingFactory.getSettings() || {};
+	$scope.local_settings = JSON.parse(JSON.stringify($rootScope.settings));
 
 	if (Object.keys($rootScope.settings).length != 0) {
 		$location.path("/products");
@@ -33,6 +34,8 @@ storeControllers.controller("WelcomeController", ["$rootScope", "$scope", "$loca
 }]);
 
 storeControllers.controller("SettingEditController", ["$rootScope", "$scope", "settingFactory", function ($rootScope, $scope, settingFactory) {
+	$scope.local_settings = JSON.parse(JSON.stringify($rootScope.settings));
+
 	$scope.submit = function (settings) {
 		settingFactory.saveSettings(settings);
 		$rootScope.settings = settings;

@@ -1,6 +1,6 @@
-<form name="form" class="form-setup" ng-submit="submit(settings)">
+<form name="form" class="form-setup" ng-submit="submit(local_settings)">
   <h2 class="form-setup-heading">Setup</h2>
-  <label for="name" class="sr-only">Store name</label>
-  <input type="text" class="form-control" ng-model="settings.store_name" name="name" placeholder="Store name" required autofocus>
+  <label for="store_name" class="sr-only">Store name</label>
+  <input type="text" class="form-control" ng-model="local_settings.store_name" name="store_name" placeholder="Store name" required autofocus>
   <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="form.$invalid">Done</button>
 </form>
