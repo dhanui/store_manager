@@ -26,6 +26,10 @@ storeControllers.controller("WelcomeController", ["$rootScope", "$scope", "$loca
 		$location.path("/products");
 	}
 
+	if ($rootScope.settings.store_name == undefined) {
+		$rootScope.settings.store_name = "Store Manager";
+	}
+
 	$scope.submit = function (settings) {
 		settingFactory.saveSettings(settings);
 		$rootScope.settings = settings;
