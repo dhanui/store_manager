@@ -1,0 +1,71 @@
+<h1 class="page-header">New Purchase</h1>
+
+<form name="form" class="form-horizontal" ng-submit="submit(credit)">
+	<div class="form-group" ng-class="{'has-error':form.customer_id.$invalid}">
+		<label for="customer_id" class="col-sm-2 control-label">Customer</label>
+		<div class="col-sm-10">
+			<select ng-model="credit.customer_id" class="form-control" name="customer_id" required>
+				<option ng-repeat="customer in customers" value="{{customer.id}}">{{customer.name}}</option>
+			</select>
+			<span class="help-block" ng-show="form.customer_id.$error.required">Customer cannot be empty</span>
+		</div>
+	</div>
+	<div class="form-group" ng-repeat="item in credit.products">
+		<span ng-class="{'has-error':form.product_{{$index}}.$invalid}">
+			<label for="product_{{$index}}" class="col-sm-2 control-label">Product {{$index + 1}}</label>
+			<div class="col-sm-4">
+				<select ng-model="item.id" class="form-control" name="product_{{$index}}" ng-change="update_product(credit, item)" required>
+					<option ng-repeat="product in products" value="{{product.id}}">{{product.name}} @ Rp{{product.price}} ({{product.quantity}})</option>
+				</select>
+				<span class="help-block" ng-show="form.product_{{$index}}.$error.required">Product cannot be empty</span>
+			</div>
+		</span>
+		<span ng-class="{'has-error':form.quantity_{{$index}}.$invalid}">
+			<label for="quantity_{{$index}}" class="col-sm-1 control-label">x</label>
+			<div class="col-sm-1">
+				<input ng-model="item.quantity" ng-change="update_total_price(credit)" type="number" min="1" max="{{item.max}}" class="form-control" name="quantity_{{$index}}" ng-disabled="item.id == undefined" required>
+				<!-- <span class="help-block" ng-show="form.quantity_{{$index}}.$error.required">Cannot be empty</span>
+				<span class="help-block" ng-show="form.quantity_{{$index}}.$error.min">Must be at least 1</span>
+				<span class="help-block" ng-show="form.quantity_{{$index}}.$error.max">Must be at most {{item.max}}</span> -->
+			</div>
+		</span>
+		<label for="price_{{$index}}" class="col-sm-1 control-label">=</label>
+		<div class="col-sm-2">
+			<div class="input-group">
+				<span class="input-group-addon">Rp</span>
+				<input name="price_{{$index}}" type="number" class="form-control" value="{{item.price * item.quantity || 0}}" readonly>
+			</div>
+		</div>
+		<div class="col-sm-1">
+			<a ng-click="remove_product(credit, $index)" class="btn btn-danger" ng-disabled="credit.products.length < 2">x</a>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<a ng-click="add_product(credit)" class="btn btn-primary">+</a>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="total_price" class="col-sm-offset-8 col-sm-1 control-label">Total</label>
+		<div class="col-sm-2">
+			<div class="input-group">
+				<span class="input-group-addon">Rp</span>
+				<input name="total_price" type="number" class="form-control" value="{{credit.total_price}}" readonly>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" ng-model="credit.paid"> Paid
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default" ng-disabled="form.$invalid">Purchase</button>
+		</div>
+	</div>
+</form>

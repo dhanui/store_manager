@@ -1,0 +1,35 @@
+<h1 class="page-header">{{title}}</h1>
+
+<form name="form" class="form-horizontal" ng-submit="submit(product)">
+	<div class="form-group" ng-class="{'has-error':form.name.$invalid}">
+		<label for="name" class="col-sm-2 control-label">Name</label>
+		<div class="col-sm-10">
+			<input type="text" ng-model="product.name" class="form-control" name="name" placeholder="Name" aria-describedby="name-help-block" required>
+			<span id="name-help-block" class="help-block" ng-show="form.name.$error.required">Name cannot be empty</span>
+		</div>
+	</div>
+	<div class="form-group" ng-class="{'has-error':form.price.$invalid}">
+		<label for="price" class="col-sm-2 control-label">Price</label>
+		<div class="col-sm-10">
+			<div class="input-group">
+				<span class="input-group-addon">Rp</span>
+				<input type="number" min="100" ng-model="product.price" class="form-control" name="price" placeholder="Price" aria-describedby="price-help-block-1 price-help-block-2" required>
+			</div>
+			<span id="price-help-block-1" class="help-block" ng-show="form.price.$error.required">Price cannot be empty</span>
+			<span id="price-help-block-2" class="help-block" ng-show="form.price.$error.min">Price must be at least Rp100</span>
+		</div>
+	</div>
+	<div class="form-group" ng-class="{'has-error':form.quantity.$invalid}">
+		<label for="quantity" class="col-sm-2 control-label">Quantity</label>
+		<div class="col-sm-10">
+			<input type="number" min="1" ng-model="product.quantity" ng-disabled="title == 'Update Product'" class="form-control" name="quantity" placeholder="Quantity" aria-describedby="quantity-help-block-1 quantity-help-block-2" required>
+			<span id="quantity-help-block-1" class="help-block" ng-show="form.quantity.$error.required">Quantity cannot be empty</span>
+			<span id="quantity-help-block-2" class="help-block" ng-show="form.quantity.$error.min">Quantity must be at least 1</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-default" ng-disabled="form.$invalid">Save</button>
+		</div>
+	</div>
+</form>

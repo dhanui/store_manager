@@ -1,0 +1,41 @@
+<h1 class="page-header">Customer Credits Summary</h1>
+
+<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>
+					<a ng-click="order('id')">#</a>
+					<span class="sort-order" ng-show="predicate === 'id'" ng-class="{reverse:reverse}"></span>
+				</th>
+				<th>
+					<a ng-click="order('total_price')">Total Price</a>
+					<span class="sort-order" ng-show="predicate === 'total_price'" ng-class="{reverse:reverse}"></span>
+				</th>
+				<th>
+					<a ng-click="order('purchase_date')">Purchase Date</a>
+					<span class="sort-order" ng-show="predicate === 'purchase_date'" ng-class="{reverse:reverse}"></span>
+				</th>
+				<th>
+					<a ng-click="order('paid')">Paid</a>
+					<span class="sort-order" ng-show="predicate === 'paid'" ng-class="{reverse:reverse}"></span>
+				</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="credit in customer_credits | orderBy:predicate:reverse">
+				<td>{{credit.id}}</td>
+				<td>Rp{{credit.total_price}}</td>
+				<td>{{credit.purchase_date | date: 'dd MMM yyyy HH:mm'}}</td>
+				<td>
+					<span ng-show="credit.paid" class="text-success">Yes</span>
+					<span ng-hide="credit.paid" class="text-danger">No</span>
+				</td>
+				<td>
+					<a href="#/customers/{{credit.customer_id}}/credits/{{credit.id}}" class="btn btn-primary btn-xs">See Details</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
