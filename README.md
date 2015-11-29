@@ -1,5 +1,5 @@
 # Store Manager
-A simple desktop app to manage your repository.
+A simple desktop app to manage your store.
 
 ## Features
 
