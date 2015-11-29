@@ -1,6 +1,12 @@
 {
-  "name": "apotek",
+  "name": "StoreManager",
+  "description": "A simple desktop to manage your store",
   "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Danny Andrianto",
+    "email": "danny_andrianto@hotmail.com"
+  },
   "main": "index.js",
   "dependencies": {
     "angular": "^1.4.7",
