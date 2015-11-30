@@ -1,7 +1,7 @@
 {
   "name": "StoreManager",
   "description": "A simple desktop to manage your store",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "author": {
     "name": "Danny Andrianto",
@@ -12,10 +12,13 @@
     "url": "https://github.com/dhanui/store_manager.git"
   },
   "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
   "dependencies": {
-    "angular": "^1.4.7",
-    "angular-route": "^1.4.7",
-    "bootstrap": "^3.3.5",
+    "angular": "^1.4.8",
+    "angular-route": "^1.4.8",
+    "bootstrap": "^3.3.6",
     "jquery": "^2.1.4",
     "node-json-db": "^0.5.1"
   },
