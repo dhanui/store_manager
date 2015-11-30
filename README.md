@@ -11,4 +11,4 @@ A simple desktop app to manage your store.
 ## Quick Start
 
 1. Install dependencies: `$ npm install`
-2. Run electron: `$ node_modules/.bin/electron .`
+2. Start app: `$ npm start`
