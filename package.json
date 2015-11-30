@@ -23,6 +23,6 @@
     "node-json-db": "^0.5.1"
   },
   "devDependencies": {
-    "electron-prebuilt": "^0.35.0"
+    "electron-prebuilt": "^0.35.2"
   }
 }
