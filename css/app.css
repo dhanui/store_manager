@@ -2,6 +2,11 @@ body {
 	padding-top: 50px;
 }
 
+.btn-back {
+	position: fixed;
+	padding-top: 10px;
+}
+
 .form-setup {
 	max-width: 330px;
 	padding: 15px;
